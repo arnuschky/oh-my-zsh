@@ -5,19 +5,19 @@ function git_prompt_info() {
   echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_SUFFIX"
 }
 
+parse_git_dirty () {
+  gitstat=$(git status 2>/dev/null | grep '\(# Untracked\|# Changes\|# Changed but not updated:\)')
 
-# Checks if working tree is dirty
-parse_git_dirty() {
-  local SUBMODULE_SYNTAX=''
-  if [[ "$(git config --get oh-my-zsh.hide-status)" != "1" ]]; then
-    if [[ $POST_1_7_2_GIT -gt 0 ]]; then
-          SUBMODULE_SYNTAX="--ignore-submodules=dirty"
-    fi
-    if [[ -n $(git status -s ${SUBMODULE_SYNTAX}  2> /dev/null) ]]; then
-      echo "$ZSH_THEME_GIT_PROMPT_DIRTY"
-    else
-      echo "$ZSH_THEME_GIT_PROMPT_CLEAN"
-    fi
+  if [[ $(echo ${gitstat} | grep -c "^# Changes to be committed:$") > 0 ]]; then
+	echo -n "$ZSH_THEME_GIT_PROMPT_DIRTY"
+  fi
+
+  if [[ $(echo ${gitstat} | grep -c "^\(# Untracked files:\|# Changed but not updated:\|# Changes not staged for commit:\)$") > 0 ]]; then
+	echo -n "$ZSH_THEME_GIT_PROMPT_UNTRACKED"
+  fi 
+
+  if [[ $(echo ${gitstat} | grep -v '^$' | wc -l | tr -d ' ') == 0 ]]; then
+	echo -n "$ZSH_THEME_GIT_PROMPT_CLEAN"
   fi
 }
 
@@ -46,6 +46,15 @@ function git_prompt_ahead() {
   if $(echo "$(git log origin/$(current_branch)..HEAD 2> /dev/null)" | grep '^commit' &> /dev/null); then
     echo "$ZSH_THEME_GIT_PROMPT_AHEAD"
   fi
+}
+
+#
+# Will return the current branch name
+# Usage example: git pull origin $(current_branch)
+#
+function current_branch() {
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+  echo ${ref#refs/heads/}
 }
 
 # Formats prompt string for current git commit short SHA
