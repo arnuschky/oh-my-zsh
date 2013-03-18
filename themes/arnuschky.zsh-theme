@@ -17,12 +17,12 @@ local user="%(!.%{$fg[blue]%}.%{$fg[blue]%})%n%{$reset_color%}"
 local host="@%{$fg[yellow]%}$(hostname)%{$reset_color%}"
 
 # Compacted $PWD
-# local pwd="%{$fg[blue]%}%c%{$reset_color%}"
-local pwd="%{$fg[blue]%}${PWD/#$HOME/~}%{$reset_color%}"
+local pwd="%{$fg[blue]%}%c%{$reset_color%}"
+#local pwd="%{$fg[blue]%}${PWD/#$HOME/~}%{$reset_color%}"
 
 # main prompt
 PROMPT='
-${pwd}%{$reset_color%}$(git_prompt_info)${return_code}$(git_prompt_status)%{$reset_color%}
+%{$fg[blue]%}${PWD/#$HOME/~}%{$reset_color%}$(git_prompt_info)${return_code}$(git_prompt_status)%{$reset_color%}
 %{$fg_bold[red]%} ▶ %{$reset_color%}'
 
 # right prompt
