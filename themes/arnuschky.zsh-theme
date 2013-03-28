@@ -1,9 +1,9 @@
 
 
 # local time, color coded by last return code
-time_enabled="%(?.%{$fg[green]%}.%{$fg[red]%})%*%{$reset_color%}"
-time_disabled="%{$fg[green]%}%*%{$reset_color%}"
-time=$time_enabled
+#time_enabled="%(?.%{$fg[green]%}.%{$fg[red]%})%*%{$reset_color%}"
+#time_disabled="%{$fg[green]%}%*%{$reset_color%}"
+#time=$time_enabled
 
 # user part, color coded by privileges
 local user="%(!.%{$fg[blue]%}.%{$fg[blue]%})%n%{$reset_color%}"
@@ -22,11 +22,11 @@ local pwd="%{$fg[blue]%}%c%{$reset_color%}"
 
 # main prompt
 PROMPT='
-%{$fg[blue]%}${PWD/#$HOME/~}%{$reset_color%}$(git_prompt_info)${return_code}$(git_prompt_status)%{$reset_color%}
-%{$fg_bold[red]%} ▶ %{$reset_color%}'
+%{$fg_bold[red]%}#%{$reset_color%} %{$fg[blue]%}${PWD/#$HOME/~}%{$reset_color%}$(git_prompt_info)${return_code}$(git_prompt_status)%{$reset_color%}
+'
 
 # right prompt
-RPROMPT='${user}${host}|${time}'
+#RPROMPT='${user}${host}|${time}'
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%} ("
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[yellow]%}) %{$reset_color%}"
