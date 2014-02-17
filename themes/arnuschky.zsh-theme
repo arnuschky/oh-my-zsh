@@ -20,6 +20,29 @@ local host="@%{$fg[yellow]%}$(hostname)%{$reset_color%}"
 local pwd="%{$fg[blue]%}%c%{$reset_color%}"
 #local pwd="%{$fg[blue]%}${PWD/#$HOME/~}%{$reset_color%}"
 
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%} ("
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[yellow]%}) %{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_bold[red]%} ✗%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%} ✔%{$reset_color%}"
+
+#local unused=`git diff --quiet --ignore-submodules HEAD > /dev/null 2>&1`
+#local git_return_code=$?
+
+#local git_prompt=""
+#if [[ ${git_return_code} -le 1 ]]; then
+#  local git_branch="`git branch --no-color | grep \* | awk '{print $2}'`${BASE0}"
+#  git_prompt="${ZSH_THEME_GIT_PROMPT_PREFIX}${git_branch}"
+#  if [[ ${git_return_code} -eq 0 ]]; then
+#    git_prompt="${git_prompt}${ZSH_THEME_GIT_PROMPT_CLEAN}"
+#    echo "clean!"
+#  else
+#    git_prompt="${git_prompt}${ZSH_THEME_GIT_PROMPT_DIRTY}"
+#    echo "dirty!"
+#  fi
+#  git_prompt="${git_prompt}${ZSH_THEME_GIT_PROMPT_SUFFIX}"
+#fi
+
+
 # main prompt
 PROMPT='
 %{$fg_bold[red]%}#%{$reset_color%} %{$fg[blue]%}${PWD/#$HOME/~}%{$reset_color%}$(git_prompt_info)${return_code}$(git_prompt_status)%{$reset_color%}
@@ -28,10 +51,6 @@ PROMPT='
 # right prompt
 #RPROMPT='${user}${host}|${time}'
 
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%} ("
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[yellow]%}) %{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_bold[red]%} ✗%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%} ✔%{$reset_color%}"
 
 # Displays different symbols (simultaneously) depending on the current status of your git repo.
 ZSH_THEME_GIT_PROMPT_ADDED="%{$fg[green]%}✚"
