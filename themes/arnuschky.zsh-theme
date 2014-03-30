@@ -14,11 +14,11 @@ local user="%(!.%{$fg[blue]%}.%{$fg[blue]%})%n%{$reset_color%}"
 # hostname part.  compressed and colorcoded per host_repr array
 # if not found, regular hostname in default color
 #local host="@${host_repr[$(hostname)]:-$(hostname)}%{$reset_color%}"
-local host="@%{$fg[yellow]%}$(hostname)%{$reset_color%}"
+local host="%{$fg[green]%}$(hostname)%{$reset_color%}"
 
 # Compacted $PWD
-local pwd="%{$fg[blue]%}%c%{$reset_color%}"
-#local pwd="%{$fg[blue]%}${PWD/#$HOME/~}%{$reset_color%}"
+#local pwd="%{$fg[blue]%}%c%{$reset_color%}"
+local pwd="%{$fg[blue]%}${PWD/#$HOME/~}%{$reset_color%}"
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%} ("
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[yellow]%}) %{$reset_color%}"
@@ -42,10 +42,13 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%} ✔%{$reset_color%}"
 #  git_prompt="${git_prompt}${ZSH_THEME_GIT_PROMPT_SUFFIX}"
 #fi
 
+#local leader="%{$fg_bold[red]%}#%{$reset_color%}"
+local leader="%{$fg_bold[red]%}#%{$reset_color%}"
+
 
 # main prompt
 PROMPT='
-%{$fg_bold[red]%}#%{$reset_color%} %{$fg[blue]%}${PWD/#$HOME/~}%{$reset_color%}$(git_prompt_info)${return_code}$(git_prompt_status)%{$reset_color%}
+$leader $host %{$fg[blue]%}${PWD/#$HOME/~}%{$reset_color%}$(git_prompt_info)${return_code}$(git_prompt_status)%{$reset_color%}
 '
 
 # right prompt
